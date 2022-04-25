@@ -1,0 +1,26 @@
+{
+  "name": "itkdev-docker-server",
+  "version": "0.0.1",
+  "description": "Docker compose server site helper",
+  "bin": "index.js",
+  "main": "index.js",
+  "author": "ITKDev",
+  "license": "ISC",
+  "dependencies": {
+    "envfile": "^6.14.0",
+    "pkg": "^5.1.0",
+    "yargs": "^17.0.0"
+  },
+  "pkg": {
+    "scripts": "commands/**/*.js",
+    "targets": [
+      "node16-macos-x64",
+      "node16-linux-x64"
+    ],
+    "outputPath": "."
+  },
+  "scripts": {
+    "build": "node_modules/.bin/pkg --targets node16-linux-x64 --output itkdev-docker-compose-server .",
+    "buildTest": "node_modules/.bin/pkg --targets node16-macos-x64 --output itkdev-docker-compose-server ."
+  }
+}
