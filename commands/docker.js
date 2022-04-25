@@ -9,7 +9,7 @@ exports.description = 'Docker-compose server site using .env to detect setup'
 exports.handler = function (argv) {
   const utils = new Utils();
   const docker = new Docker();
-  const env = argv.envfile;
+  const env = argv['env-file'];
 
   // Test env file exists.
   if (!utils.isFile(env)) {
@@ -25,7 +25,7 @@ exports.handler = function (argv) {
         options.splice(i, 1);
         break;
 
-      case "--envfile":
+      case "--env-file":
         options.splice(i, 2);
         break;
     }

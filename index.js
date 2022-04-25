@@ -8,7 +8,7 @@ const {hideBin} = require('yargs/helpers')
 const argv = yargs(hideBin(process.argv))
   .commandDir('commands')
   .options({
-    envfile: {
+    'env-file': {
       description: 'Environment file with setup description',
       default: '.env.docker.local',
       type: 'string'
