@@ -12,24 +12,31 @@ exports.handler = function (argv) {
   const env = argv['env-file'];
 
   // Test env file exists.
-  if (!utils.isFile(env)) {
+  if (!utils.isFile(argv.root + '/' + env)) {
     console.error('The env file not found!');
     return;
   }
 
   // Hack to parse the commands that should be sendt to docker.
   let options = process.argv.splice(2);
-  for (var i = 0; i < options.length; i++) {
+  let cmd = '';
+
+  for (let i = 0; i < options.length; i++) {
     switch (options[i]) {
       case "--debug":
-        options.splice(i, 1);
-        break;
+        continue;
 
       case "--env-file":
-        options.splice(i, 2);
-        break;
+      case "--root":
+      case "--compose":
+        // Jump over the argument to these parameteres
+        i++
+        continue;
+
+      default:
+        cmd += ' ' + options[i];
     }
   }
 
-  docker.exec(argv.debug, env, options.join(' '))
+  docker.exec(argv.debug, env, argv.root, argv.compose, cmd)
 }
