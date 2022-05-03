@@ -17,6 +17,16 @@ const argv = yargs(hideBin(process.argv))
       description: 'Output data to console and do not post to API',
       default: false,
       type: 'boolean'
+    },
+    'root': {
+      description: 'The directory (root) to find the environment file',
+      default: '.',
+      type: 'string'
+    },
+    'compose': {
+      description: 'Location of docker-compose executable',
+      default: '/usr/local/bin/docker-compose',
+      type: 'string'
     }
   })
   .demandCommand()
