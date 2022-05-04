@@ -31,5 +31,5 @@ const argv = yargs(hideBin(process.argv))
   })
   .demandCommand()
   .strictCommands()
-  .help()
+  .help(false)
   .argv
