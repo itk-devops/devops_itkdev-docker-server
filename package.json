@@ -16,14 +16,14 @@
   "pkg": {
     "scripts": "dist/commands/**/*.js",
     "targets": [
-      "node16-macos-x64",
-      "node16-linux-x64"
+      "node18-macos-x64",
+      "node18-linux-x64"
     ],
     "outputPath": "."
   },
   "scripts": {
-    "build": "node_modules/.bin/tsc && node_modules/.bin/pkg --targets node16-linux-x64 --output itkdev-docker-compose-server .",
-    "buildTest": "node_modules/.bin/tsc && node_modules/.bin/pkg --targets node16-macos-x64 --output itkdev-docker-compose-server ."
+    "build": "node_modules/.bin/tsc && node_modules/.bin/pkg --targets node18-linux-x64 --output itkdev-docker-compose-server .",
+    "buildTest": "node_modules/.bin/tsc && node_modules/.bin/pkg --targets node18-macos-x64 --output itkdev-docker-compose-server ."
   },
   "devDependencies": {
     "ts-node": "^10.7.0",
