@@ -1,8 +1,8 @@
 'use strict'
 
-const {execSync} = require('child_process');
-const envfile = require("envfile");
-const fs = require('fs');
+import {execSync} from "child_process"
+import * as envfile from "envfile"
+import * as fs from "fs"
 
 module.exports = class Docker {
 
@@ -20,7 +20,7 @@ module.exports = class Docker {
 	 * @param inputCmd
 	 *   The commands to parse to docker compose.
 	 */
-	exec(debug, env, root, compose, inputCmd) {
+	exec(debug: boolean, env: string, root: string, compose: string, inputCmd: string) {
 		let cmd = compose + ' --env-file ' + env + ' ';
 
 		// Get yml files from .env file.
@@ -31,7 +31,7 @@ module.exports = class Docker {
 		}
 		else {
 			let files = json.COMPOSE_FILES.split(",");
-			files.forEach(function (element) {
+			files.forEach(function (element: string) {
 				cmd += '-f ' + element + ' ';
 			});
 		}
@@ -45,8 +45,10 @@ module.exports = class Docker {
 		else {
 			try {
 				execSync(cmd, {encoding: 'utf8', cwd: root, stdio: 'inherit'});
-			} catch (exception) {
-				console.error(exception.toString());
+			} catch (err) {
+				if (err instanceof Error) {
+					console.error(err.message);
+				}
 				return null;
 			}
 		}

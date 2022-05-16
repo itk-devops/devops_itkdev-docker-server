@@ -6,7 +6,7 @@ const Utils = require('../modules/utils');
 exports.command = '*'
 exports.description = 'Docker-compose server site using .env to detect setup'
 
-exports.handler = function (argv) {
+exports.handler = function (argv: { [x: string]: any; root: string; debug: any; compose: any; }) {
   const utils = new Utils();
   const docker = new Docker();
   const env = argv['env-file'];
