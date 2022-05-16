@@ -111,7 +111,7 @@ export default class Docker {
 			containers = containers.concat(that.parse(element, root));
 		}, that);
 
-		console.log(containers);
+		console.log(JSON.stringify(containers));
 	}
 
 	/**
