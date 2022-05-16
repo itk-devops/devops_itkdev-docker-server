@@ -1,9 +1,9 @@
 'use strict';
 
-const fs = require("fs");
-const path = require("path");
+import * as fs from "fs"
+import * as path from "path"
 
-module.exports = class Utils {
+export default class Utils {
 
   /**
    * Is the source a directory.
@@ -11,7 +11,7 @@ module.exports = class Utils {
    * @param source
    * @returns {boolean}
    */
-  isDirectory (source) {
+  public isDirectory (source: string) {
     return fs.lstatSync(source).isDirectory();
   }
 
@@ -21,7 +21,7 @@ module.exports = class Utils {
    * @param source
    * @returns {boolean}
    */
-  isFile (source) {
+  public isFile (source: string) {
     try {
       if (fs.existsSync(source)) {
         return fs.lstatSync(source).isFile() || fs.lstatSync(source).isSymbolicLink();
@@ -39,8 +39,8 @@ module.exports = class Utils {
    * @param source
    * @returns {string[]}
    */
-  getDirectories (source) {
-    return fs.readdirSync(source).map(name => path.join(source, name)).filter(this.isDirectory);
+  public getDirectories (source: string) {
+    return fs.readdirSync(source).map((name: string) => path.join(source, name)).filter(this.isDirectory);
   }
 
   /**
@@ -49,7 +49,7 @@ module.exports = class Utils {
    * @param source
    * @returns {string[]}
    */
-  getFiles (source) {
-    return fs.readdirSync(source).map(name => path.join(source, name)).filter(this.isFile);
+  public getFiles (source: string) {
+    return fs.readdirSync(source).map((name: string) => path.join(source, name)).filter(this.isFile);
   }
 }

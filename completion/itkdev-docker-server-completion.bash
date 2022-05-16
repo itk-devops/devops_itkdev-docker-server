@@ -9,7 +9,7 @@ _ids_completions()
   fi
 
   # Keep the suggestions in a local variable
-  local suggestions=($(compgen -W "--debug --env-file --root --compose --help" -- "${COMP_WORDS[1]}"))
+  local suggestions=($(compgen -W "--debug --env-file --root --compose --version" -- "${COMP_WORDS[1]}"))
 
   COMPREPLY=("${suggestions[@]}")
 
