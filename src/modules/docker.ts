@@ -1,5 +1,3 @@
-// noinspection SpellCheckingInspection
-
 'use strict'
 
 import {execSync} from "child_process"
@@ -8,9 +6,11 @@ import * as fs from "fs"
 import * as yaml from "js-yaml"
 
 /**
- * YAML Payload interface.
+ * ComposerYAML interface.
+ *
+ * Structure of the data read from docker compose yaml files.
  */
-interface Payload {
+interface ComposerYAML {
 	services: {
 		[index: string]: {
 			image: string,
@@ -20,7 +20,7 @@ interface Payload {
 }
 
 /**
- * Cotainer ouput information definition.
+ * Container output information definition.
  */
 interface Container {
 	name: string,
@@ -62,7 +62,7 @@ module.exports = class Docker {
 			});
 		}
 
-		// Add command
+		// Add command string.
 		cmd += inputCmd;
 
 		if (debug) {
@@ -114,10 +114,20 @@ module.exports = class Docker {
 		console.log(containers);
 	}
 
+	/**
+	 * Parse basic information about images based on composer yaml file.
+	 *
+	 * @param file
+	 *   Docker compose yaml file to parse
+	 * @param root
+	 *   The root directory where the yaml file is located.
+	 *
+	 * @private
+	 */
 	private parse(file: string, root: string): Container[]
 	{
 		let fileContents = fs.readFileSync(root + '/' + file, 'utf8');
-		let data = yaml.load(fileContents) as Payload;
+		let data = yaml.load(fileContents) as ComposerYAML;
 		let containers: Container[] = [];
 
 		for (let service of Object.keys(data.services)) {

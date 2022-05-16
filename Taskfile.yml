@@ -1,0 +1,30 @@
+version: '3'
+
+dotenv: [".task.env"]
+
+vars:
+  # Docker file selection
+  DOCKER_COMPOSE_FILES_OSX: '{{if eq OS "darwin"}}-f docker-compose.mac-nfs.yml{{end}}'
+  DOCKER_COMPOSE_FILES_DEFAULT: '-f docker-compose.yml {{ .DOCKER_COMPOSE_FILES_OSX }}'
+  DOCKER_COMPOSE_FILES: '{{.DOCKER_COMPOSE_FILES | default .DOCKER_COMPOSE_FILES_DEFAULT }}'
+
+tasks:
+  dev:install:
+    summary: Install node packages
+    cmds:
+      - task dev:cli -- npm install
+
+  dev:build:
+    summary: Build MacOS-x64 test build
+    cmds:
+      - task dev:cli -- npm run buildTest
+
+  dev:cli:
+    summary: Performs command inside container. Expects parameter(s).
+    cmds:
+      - docker compose {{ .DOCKER_COMPOSE_FILES }} run --rm node {{.CLI_ARGS}}
+
+  build:
+    summary: Build linux-x64
+    cmds:
+      - task dev:cli -- npm run build

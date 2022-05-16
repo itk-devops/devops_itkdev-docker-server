@@ -1,5 +1,5 @@
 .env*
 itkdev-docker-compose-server
-docker-compose*.yml
 node_modules
 dist
+.pkg-cache
