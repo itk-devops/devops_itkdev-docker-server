@@ -7,7 +7,9 @@
   "author": "ITKDev",
   "license": "ISC",
   "dependencies": {
+    "@types/js-yaml": "^4.0.5",
     "envfile": "^6.14.0",
+    "js-yaml": "^4.1.0",
     "pkg": "^5.1.0",
     "yargs": "^17.0.0"
   },

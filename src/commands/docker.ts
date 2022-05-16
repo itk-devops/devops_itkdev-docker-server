@@ -24,6 +24,7 @@ exports.handler = function (argv: { [x: string]: any; root: string; debug: any; 
   for (let i = 0; i < options.length; i++) {
     switch (options[i]) {
       case "--debug":
+      case "--dump-info":
         continue;
 
       case "--env-file":
@@ -38,5 +39,10 @@ exports.handler = function (argv: { [x: string]: any; root: string; debug: any; 
     }
   }
 
-  docker.exec(argv.debug, env, argv.root, argv.compose, cmd)
+  if (argv['dumpInfo']) {
+    docker.info(argv.debug, env, argv.root);
+  }
+  else {
+    docker.exec(argv.debug, env, argv.root, argv.compose, cmd)
+  }
 }

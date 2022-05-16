@@ -1,8 +1,33 @@
+// noinspection SpellCheckingInspection
+
 'use strict'
 
 import {execSync} from "child_process"
 import * as envfile from "envfile"
 import * as fs from "fs"
+import * as yaml from "js-yaml"
+
+/**
+ * YAML Payload interface.
+ */
+interface Payload {
+	services: {
+		[index: string]: {
+			image: string,
+			ports: string[]
+		}
+	}
+}
+
+/**
+ * Cotainer ouput information definition.
+ */
+interface Container {
+	name: string,
+	image: string,
+	version: string
+	ports: string[],
+}
 
 module.exports = class Docker {
 
@@ -20,7 +45,8 @@ module.exports = class Docker {
 	 * @param inputCmd
 	 *   The commands to parse to docker compose.
 	 */
-	exec(debug: boolean, env: string, root: string, compose: string, inputCmd: string) {
+	public exec(debug: boolean, env: string, root: string, compose: string, inputCmd: string)
+	{
 		let cmd = compose + ' --env-file ' + env + ' ';
 
 		// Get yml files from .env file.
@@ -52,5 +78,66 @@ module.exports = class Docker {
 				return null;
 			}
 		}
+	}
+
+	/**
+	 * Get docker image information from yaml composer files.
+	 *
+	 * Use the .env file detected to find composer files
+	 * and parse services.
+	 *
+	 * @param debug
+	 * @param env
+	 * @param root
+	 */
+	public info(debug: boolean, env: string, root: string)
+	{
+		let files: string[] = [ 'docker-compose.server.yml' ];
+		let content = fs.readFileSync(root + '/' + env);
+		let json = envfile.parse(content.toString());
+		if (json.hasOwnProperty('COMPOSE_FILES')) {
+			files = json.COMPOSE_FILES.split(",");
+		}
+
+		if (debug) {
+			console.log('Root: ', root)
+			console.log('Env-file: ', env);
+			console.log('Files: ', files);
+		}
+
+		let containers: Container[] = [];
+		let that: Docker = this;
+		files.forEach(function (element: string) {
+			containers = containers.concat(that.parse(element, root));
+		}, that);
+
+		console.log(containers);
+	}
+
+	private parse(file: string, root: string): Container[]
+	{
+		let fileContents = fs.readFileSync(root + '/' + file, 'utf8');
+		let data = yaml.load(fileContents) as Payload;
+		let containers: Container[] = [];
+
+		for (let service of Object.keys(data.services)) {
+			let container: Container = {
+				'name': service,
+				'image': 'unknown',
+				'version': 'unknown',
+				'ports': []
+			}
+
+			if (data.services[service].hasOwnProperty('image')) {
+				let image = data.services[service].image.split(':');
+				container.image = image[0];
+				container.version = image[1];
+				container.ports = data.services[service].hasOwnProperty('ports') ? data.services[service].ports : [];
+			}
+
+			containers.push(container);
+		}
+
+		return containers;
 	}
 }
