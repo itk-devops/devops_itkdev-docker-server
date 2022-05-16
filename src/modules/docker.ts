@@ -29,7 +29,7 @@ interface Container {
 	ports: string[],
 }
 
-module.exports = class Docker {
+export default class Docker {
 
 	/**
 	 * Execute docker compose command.

@@ -3,7 +3,7 @@
 import * as fs from "fs"
 import * as path from "path"
 
-module.exports = class Utils {
+export default class Utils {
 
   /**
    * Is the source a directory.
@@ -11,7 +11,7 @@ module.exports = class Utils {
    * @param source
    * @returns {boolean}
    */
-  isDirectory (source: string) {
+  public isDirectory (source: string) {
     return fs.lstatSync(source).isDirectory();
   }
 
@@ -21,7 +21,7 @@ module.exports = class Utils {
    * @param source
    * @returns {boolean}
    */
-  isFile (source: string) {
+  public isFile (source: string) {
     try {
       if (fs.existsSync(source)) {
         return fs.lstatSync(source).isFile() || fs.lstatSync(source).isSymbolicLink();
@@ -39,7 +39,7 @@ module.exports = class Utils {
    * @param source
    * @returns {string[]}
    */
-  getDirectories (source: string) {
+  public getDirectories (source: string) {
     return fs.readdirSync(source).map((name: string) => path.join(source, name)).filter(this.isDirectory);
   }
 
@@ -49,7 +49,7 @@ module.exports = class Utils {
    * @param source
    * @returns {string[]}
    */
-  getFiles (source: string) {
+  public getFiles (source: string) {
     return fs.readdirSync(source).map((name: string) => path.join(source, name)).filter(this.isFile);
   }
 }

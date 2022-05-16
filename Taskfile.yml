@@ -14,6 +14,9 @@ tasks:
     cmds:
       - task dev:cli -- npm install
 
+  dev:compile:
+    task dev:cli -- node_modules/.bin/tsc
+
   dev:build:
     summary: Build MacOS-x64 test build
     cmds:

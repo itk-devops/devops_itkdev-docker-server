@@ -1,7 +1,7 @@
 'use strict';
 
-const Docker = require('../modules/docker');
-const Utils = require('../modules/utils');
+import Docker from '../modules/docker';
+import Utils from '../modules/utils';
 
 exports.command = '*'
 exports.description = 'Docker-compose server site using .env to detect setup'
