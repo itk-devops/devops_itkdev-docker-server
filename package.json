@@ -20,8 +20,8 @@
     "outputPath": "."
   },
   "scripts": {
-    "build": "npx tsc && node_modules/.bin/pkg --targets node16-linux-x64 --output itkdev-docker-compose-server .",
-    "buildTest": "npx tsc && node_modules/.bin/pkg --targets node16-macos-x64 --output itkdev-docker-compose-server ."
+    "build": "node_modules/.bin/tsc && node_modules/.bin/pkg --targets node16-linux-x64 --output itkdev-docker-compose-server .",
+    "buildTest": "node_modules/.bin/tsc && node_modules/.bin/pkg --targets node16-macos-x64 --output itkdev-docker-compose-server ."
   },
   "devDependencies": {
     "ts-node": "^10.7.0",
