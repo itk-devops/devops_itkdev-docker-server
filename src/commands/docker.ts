@@ -19,8 +19,8 @@ exports.handler = function (argv: { [x: string]: any; root: string; debug: any; 
 
   // Hack to parse the commands that should be sendt to docker.
   let options = process.argv.splice(2);
-  let cmd = '';
 
+  const composeArguments = [];
   for (let i = 0; i < options.length; i++) {
     switch (options[i]) {
       case "--debug":
@@ -35,7 +35,7 @@ exports.handler = function (argv: { [x: string]: any; root: string; debug: any; 
         continue;
 
       default:
-        cmd += ' ' + options[i];
+        composeArguments.push(options[i]);
     }
   }
 
@@ -43,6 +43,6 @@ exports.handler = function (argv: { [x: string]: any; root: string; debug: any; 
     docker.info(argv.debug, env, argv.root);
   }
   else {
-    docker.exec(argv.debug, env, argv.root, argv.compose, cmd)
+    docker.exec(argv.debug, env, argv.root, argv.compose, composeArguments)
   }
 }

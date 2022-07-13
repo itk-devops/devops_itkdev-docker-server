@@ -1,9 +1,10 @@
 'use strict'
 
-import {execSync} from "child_process"
+import {execFileSync} from "child_process"
 import * as envfile from "envfile"
 import * as fs from "fs"
 import * as yaml from "js-yaml"
+import Utils from "./utils";
 
 /**
  * ComposerYAML interface.
@@ -14,7 +15,8 @@ interface ComposerYAML {
 	services: {
 		[index: string]: {
 			image: string,
-			ports: string[]
+			ports: string[],
+			build: string,
 		}
 	}
 }
@@ -24,6 +26,7 @@ interface ComposerYAML {
  */
 interface Container {
 	name: string,
+	source: string,
 	image: string,
 	version: string
 	ports: string[],
@@ -42,35 +45,39 @@ export default class Docker {
 	 *   The root path to execute the command in.
 	 * @param compose
 	 *   The composer binary.
-	 * @param inputCmd
-	 *   The commands to parse to docker compose.
+	 * @param composeArguments
+	 *   The commands to pass to docker compose.
 	 */
-	public exec(debug: boolean, env: string, root: string, compose: string, inputCmd: string)
+	public exec(debug: boolean, env: string, root: string, compose: string, composeArguments: string[])
 	{
-		let cmd = compose + ' --env-file ' + env + ' ';
+		const args = [
+			'--env-file', env
+		]
 
 		// Get yml files from .env file.
 		let content = fs.readFileSync(root + '/' + env);
 		let json = envfile.parse(content.toString());
 		if (!json.hasOwnProperty('COMPOSE_FILES')) {
-			cmd += '-f docker-compose.server.yml '
-		}
-		else {
-			let files = json.COMPOSE_FILES.split(",");
-			files.forEach(function (element: string) {
-				cmd += '-f ' + element + ' ';
-			});
+			json.COMPOSE_FILES = 'docker-compose.server.yml'
 		}
 
-		// Add command string.
-		cmd += inputCmd;
+		let files = json.COMPOSE_FILES.split(",");
+		files.forEach(function (element: string) {
+			args.push('--file')
+			args.push(element)
+		});
+
+		for (var a of composeArguments) {
+			args.push(a)
+		}
 
 		if (debug) {
-			console.log(cmd);
+			const utils = new Utils()
+			console.log([compose, ...args].map(s => utils.shellEscape(s)).join(' '));
 		}
 		else {
 			try {
-				execSync(cmd, {encoding: 'utf8', cwd: root, stdio: 'inherit'});
+				execFileSync(compose, args, {encoding: 'utf8', cwd: root, stdio: 'inherit'});
 			} catch (err) {
 				if (err instanceof Error) {
 					console.error(err.message);
@@ -133,6 +140,7 @@ export default class Docker {
 		for (let service of Object.keys(data.services)) {
 			let container: Container = {
 				'name': service,
+				'source': 'unknown',
 				'image': 'unknown',
 				'version': 'unknown',
 				'ports': []
@@ -140,12 +148,23 @@ export default class Docker {
 
 			if (data.services[service].hasOwnProperty('image')) {
 				let image = data.services[service].image.split(':');
+				container.source = 'hub';
 				container.image = image[0];
 				container.version = image[1];
 				container.ports = data.services[service].hasOwnProperty('ports') ? data.services[service].ports : [];
+
+				// Only add information to output if the service has an image defined else its simple overrides.
+				containers.push(container);
 			}
 
-			containers.push(container);
+			// Check if this is a build.
+			if (data.services[service].hasOwnProperty('build')) {
+				container.source = 'build';
+				container.ports = data.services[service].hasOwnProperty('ports') ? data.services[service].ports : [];
+
+				containers.push(container);
+			}
+
 		}
 
 		return containers;
