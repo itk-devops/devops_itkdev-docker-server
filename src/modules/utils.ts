@@ -52,4 +52,17 @@ export default class Utils {
   public getFiles (source: string) {
     return fs.readdirSync(source).map((name: string) => path.join(source, name)).filter(this.isFile);
   }
+
+  /**
+   * Escape shell argument.
+   *
+   * @see https://github.com/nodejs/node/issues/34840#issuecomment-677402567
+   *
+   * @param value
+   */
+  public shellEscape(s: string) {
+    if (s === '') return `''`;
+    if (!/[^%+,-.\/:=@_0-9A-Za-z]/.test(s)) return s;
+    return `'` + s.replace(/'/g, `'"'`) + `'`;
+  }
 }
