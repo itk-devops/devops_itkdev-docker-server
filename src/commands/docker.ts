@@ -6,13 +6,13 @@ import Utils from '../modules/utils';
 exports.command = '*'
 exports.description = 'Docker-compose server site using .env to detect setup'
 
-exports.handler = function (argv: { [x: string]: any; root: string; debug: any; compose: any; }) {
+exports.handler = function (argv: { [x: string]: any; base: string; debug: any; compose: any; }) {
   const utils = new Utils();
   const docker = new Docker();
   const env = argv['env-file'];
 
   // Test env file exists.
-  if (!utils.isFile(argv.root + '/' + env)) {
+  if (!utils.isFile(argv.base + '/' + env)) {
     console.error('The env file not found!');
     return;
   }
@@ -40,9 +40,9 @@ exports.handler = function (argv: { [x: string]: any; root: string; debug: any; 
   }
 
   if (argv['dumpInfo']) {
-    docker.info(argv.debug, env, argv.root);
+    docker.info(argv.debug, env, argv.base);
   }
   else {
-    docker.exec(argv.debug, env, argv.root, argv.compose, composeArguments)
+    docker.exec(argv.debug, env, argv.base, argv.compose, composeArguments)
   }
 }

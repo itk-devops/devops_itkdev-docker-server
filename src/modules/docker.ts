@@ -41,21 +41,21 @@ export default class Docker {
 	 *   If true the command will be outputted but not executed.
 	 * @param env
 	 *   The environment file to use.
-	 * @param root
-	 *   The root path to execute the command in.
+	 * @param base
+	 *   The base path to execute the command in.
 	 * @param compose
 	 *   The composer binary.
 	 * @param composeArguments
 	 *   The commands to pass to docker compose.
 	 */
-	public exec(debug: boolean, env: string, root: string, compose: string, composeArguments: string[])
+	public exec(debug: boolean, env: string, base: string, compose: string, composeArguments: string[])
 	{
 		const args = [
 			'--env-file', env
 		]
 
 		// Get yml files from .env file.
-		let content = fs.readFileSync(root + '/' + env);
+		let content = fs.readFileSync(base + '/' + env);
 		let json = envfile.parse(content.toString());
 		if (!json.hasOwnProperty('COMPOSE_FILES')) {
 			json.COMPOSE_FILES = 'docker-compose.server.yml'
@@ -77,7 +77,7 @@ export default class Docker {
 		}
 		else {
 			try {
-				execFileSync(compose, args, {encoding: 'utf8', cwd: root, stdio: 'inherit'});
+				execFileSync(compose, args, {encoding: 'utf8', cwd: base, stdio: 'inherit'});
 			} catch (err) {
 				if (err instanceof Error) {
 					console.error(err.message);
@@ -95,19 +95,19 @@ export default class Docker {
 	 *
 	 * @param debug
 	 * @param env
-	 * @param root
+	 * @param base
 	 */
-	public info(debug: boolean, env: string, root: string)
+	public info(debug: boolean, env: string, base: string)
 	{
 		let files: string[] = [ 'docker-compose.server.yml' ];
-		let content = fs.readFileSync(root + '/' + env);
+		let content = fs.readFileSync(base + '/' + env);
 		let json = envfile.parse(content.toString());
 		if (json.hasOwnProperty('COMPOSE_FILES')) {
 			files = json.COMPOSE_FILES.split(",");
 		}
 
 		if (debug) {
-			console.log('Root: ', root)
+			console.log('Base: ', base)
 			console.log('Env-file: ', env);
 			console.log('Files: ', files);
 		}
@@ -115,7 +115,7 @@ export default class Docker {
 		let containers: Container[] = [];
 		let that: Docker = this;
 		files.forEach(function (element: string) {
-			containers = containers.concat(that.parse(element, root));
+			containers = containers.concat(that.parse(element, base));
 		}, that);
 
 		console.log(JSON.stringify(containers));
@@ -126,14 +126,14 @@ export default class Docker {
 	 *
 	 * @param file
 	 *   Docker compose yaml file to parse
-	 * @param root
-	 *   The root directory where the yaml file is located.
+	 * @param base
+	 *   The base directory where the yaml file is located.
 	 *
 	 * @private
 	 */
-	private parse(file: string, root: string): Container[]
+	private parse(file: string, base: string): Container[]
 	{
-		let fileContents = fs.readFileSync(root + '/' + file, 'utf8');
+		let fileContents = fs.readFileSync(base + '/' + file, 'utf8');
 		let data = yaml.load(fileContents) as ComposerYAML;
 		let containers: Container[] = [];
 
