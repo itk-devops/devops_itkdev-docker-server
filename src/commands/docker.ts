@@ -28,7 +28,7 @@ exports.handler = function (argv: { [x: string]: any; base: string; debug: any; 
         continue;
 
       case "--env-file":
-      case "--root":
+      case "--base":
       case "--compose":
         // Jump over the argument to these parameteres
         i++
