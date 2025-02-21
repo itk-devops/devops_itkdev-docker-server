@@ -6,7 +6,7 @@ import Utils from '../modules/utils';
 exports.command = '*'
 exports.description = 'Docker-compose server site using .env to detect setup'
 
-exports.handler = function (argv: { [x: string]: any; base: string; debug: any; compose: any; }) {
+exports.handler = function (argv: { [x: string]: any; base: string; debug: any; docker: any; }) {
   const utils = new Utils();
   const docker = new Docker();
   const env = argv['env-file'];
@@ -29,7 +29,7 @@ exports.handler = function (argv: { [x: string]: any; base: string; debug: any; 
 
       case "--env-file":
       case "--base":
-      case "--compose":
+      case "--docker":
         // Jump over the argument to these parameteres
         i++
         continue;
@@ -43,6 +43,6 @@ exports.handler = function (argv: { [x: string]: any; base: string; debug: any; 
     docker.info(argv.debug, env, argv.base);
   }
   else {
-    docker.exec(argv.debug, env, argv.base, argv.compose, composeArguments)
+    docker.exec(argv.debug, env, argv.base, argv.docker, composeArguments)
   }
 }
