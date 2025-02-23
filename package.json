@@ -23,7 +23,7 @@
   },
   "scripts": {
     "build": "node_modules/.bin/tsc && node_modules/.bin/pkg --targets node16-linux-x64 --output itkdev-docker-compose-server .",
-    "buildTest": "node_modules/.bin/tsc && node_modules/.bin/pkg --targets node16-macos-x64 --output itkdev-docker-compose-server ."
+    "build:macos": "node_modules/.bin/tsc && node_modules/.bin/pkg --targets node16-macos-x64 --output itkdev-docker-compose-server ."
   },
   "devDependencies": {
     "@types/node": "^17.0.33",
