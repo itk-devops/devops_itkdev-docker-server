@@ -43,14 +43,15 @@ export default class Docker {
 	 *   The environment file to use.
 	 * @param base
 	 *   The base path to execute the command in.
-	 * @param compose
-	 *   The composer binary.
+	 * @param docker
+	 *   The docker binary.
 	 * @param composeArguments
 	 *   The commands to pass to docker compose.
 	 */
-	public exec(debug: boolean, env: string, base: string, compose: string, composeArguments: string[])
+	public exec(debug: boolean, env: string, base: string, docker: string, composeArguments: string[])
 	{
 		const args = [
+			'compose',
 			'--env-file', env
 		]
 
@@ -73,11 +74,11 @@ export default class Docker {
 
 		if (debug) {
 			const utils = new Utils()
-			console.log([compose, ...args].map(s => utils.shellEscape(s)).join(' '));
+			console.log([docker, ...args].map(s => utils.shellEscape(s)).join(' '));
 		}
 		else {
 			try {
-				execFileSync(compose, args, {encoding: 'utf8', cwd: base, stdio: 'inherit'});
+				execFileSync(docker, args, {encoding: 'utf8', cwd: base, stdio: 'inherit'});
 			} catch (err) {
 				if (err instanceof Error) {
 					console.error(err.message);

@@ -24,9 +24,9 @@ const argv = yargs(hideBin(process.argv))
             default: '.',
             type: 'string'
         },
-        'compose': {
-            description: 'Location of docker-compose executable',
-            default: '/usr/local/bin/docker-compose',
+        'docker': {
+            description: 'Location of docker executable',
+            default: '/usr/bin/docker',
             type: 'string'
         },
         'dump-info': {
