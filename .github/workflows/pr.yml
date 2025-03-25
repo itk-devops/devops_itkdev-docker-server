@@ -1,7 +1,4 @@
-on:
-  push:
-    tags:
-      - '*.*.*'
+on: pull_request
 
 name: Test build
 
