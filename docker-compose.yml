@@ -1,19 +1,6 @@
-version: "3.7"
-
 services:
   node:
-    image: node:16
-    user: node
-    init: true
+    image: node:18
     working_dir: /app
     volumes:
-      - root:/app
-      # Map pkg cache dir to prevent download base image on every run.
-      - $PWD/.pkg-cache:/home/node/.pkg-cache
-
-volumes:
-  root:
-    driver_opts:
-      type: none
-      device: $PWD
-      o: bind
+      - .:/app
