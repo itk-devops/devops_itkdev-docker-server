@@ -17,16 +17,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Composer install
+      - name: Make assets dir
         run: |
-          docker network create frontend
+          mkdir -p ./assets
+
+      - name: Npm install
+        run: |
           docker compose run --rm node npm install
           docker compose run --rm node npm run build
 
       - name: Create checksum
         run: |
-          cd ../assets
-          sha256sum itkdev-docker-compose-server > ../assets/checksum.txt
+          cd ./assets
+          sha256sum itkdev-docker-compose-server > ./checksum.txt
 
       - name: Upload assets
         uses: actions/upload-artifact@v4

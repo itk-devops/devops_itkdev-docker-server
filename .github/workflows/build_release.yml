@@ -20,9 +20,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Composer install
+      - name: Make assets dir
         run: |
-          docker network create frontend
+          mkdir -p ../assets
+
+      - name: Npm install
+        run: |
           docker compose run --rm node npm install
           docker compose run --rm node npm run build
 
