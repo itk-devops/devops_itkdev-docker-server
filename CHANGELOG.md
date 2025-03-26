@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.11] - 2025-03-26
+
+* [PR-7](https://github.com/itk-dev/economics/pull/7)
+  Update to node:18, update dependencies   
+  Update docker setup   
+  Update github actions   
+  Add "test build" action for PR's
+
 ## [0.0.10] - 2025-03-26
 
 * [PR-5](https://github.com/itk-dev/economics/pull/5)
@@ -35,7 +43,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.0.1] - 2022-04-22
 
-[Unreleased]: https://github.com/itk-dev/economics/compare/0.0.10...HEAD
+[Unreleased]: https://github.com/itk-dev/economics/compare/0.0.11...HEAD
+[0.0.11]: https://github.com/itk-devops/devops_itkdev-docker-server/releases/tag/0.0.11
 [0.0.10]: https://github.com/itk-devops/devops_itkdev-docker-server/releases/tag/0.0.10
 [0.0.9]: https://github.com/itk-devops/devops_itkdev-docker-server/releases/tag/0.0.9
 [0.0.8]: https://github.com/itk-devops/devops_itkdev-docker-server/releases/tag/0.0.8
