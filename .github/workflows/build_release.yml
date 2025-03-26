@@ -35,7 +35,7 @@ jobs:
           sha256sum itkdev-docker-compose-server > ./checksum.txt
 
       - name: Create a release in GitHub and uploads assets
-        run: gh release create ${{ github.ref_name }} --verify-tag --generate-notes ./assets/*.*
+        run: gh release create ${{ github.ref_name }} --verify-tag --generate-notes ./assets/itkdev-docker-compose-server ./assets/checksum.txt
         env:
           GITHUB_TOKEN: ${{ github.TOKEN }}
         shell: bash
