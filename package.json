@@ -1,6 +1,6 @@
 {
   "name": "itkdev-docker-server",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Docker compose server site helper",
   "bin": "dist/index.js",
   "main": "dist/index.js",
@@ -16,14 +16,14 @@
   "pkg": {
     "scripts": "dist/commands/**/*.js",
     "targets": [
-      "node16-macos-x64",
-      "node16-linux-x64"
+      "node18-macos-x64",
+      "node18-linux-x64"
     ],
     "outputPath": "."
   },
   "scripts": {
-    "build": "node_modules/.bin/tsc && node_modules/.bin/pkg --targets node16-linux-x64 --output assets/itkdev-docker-compose-server .",
-    "buildTest": "node_modules/.bin/tsc && node_modules/.bin/pkg --targets node16-macos-x64 --output itkdev-docker-compose-server ."
+    "build": "node_modules/.bin/tsc && node_modules/.bin/pkg --targets node18-linux-x64 --output assets/itkdev-docker-compose-server .",
+    "buildTest": "node_modules/.bin/tsc && node_modules/.bin/pkg --targets node18-macos-x64 --output itkdev-docker-compose-server ."
   },
   "devDependencies": {
     "@types/node": "^17.0.33",
