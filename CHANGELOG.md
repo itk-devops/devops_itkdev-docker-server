@@ -7,13 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.12] - 2025-03-26
+
+* [PR-8](https://github.com/itk-dev/economics/pull/8)
+  Fix binary non uploaded as release asset
+
 ## [0.0.11] - 2025-03-26
 
 * [PR-7](https://github.com/itk-dev/economics/pull/7)
-  Update to node:18, update dependencies   
-  Update docker setup   
-  Update github actions   
-  Add "test build" action for PR's
+  Fix path in build action  
 
 ## [0.0.10] - 2025-03-26
 
