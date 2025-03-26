@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.13] - 2025-03-26
+
+* [PR-8](https://github.com/itk-dev/economics/pull/8)
+  Roll back to node:16 and dependencies lock from 0.0.9.
+
 ## [0.0.12] - 2025-03-26
 
 * [PR-8](https://github.com/itk-dev/economics/pull/8)
