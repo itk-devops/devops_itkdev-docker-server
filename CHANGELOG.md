@@ -7,29 +7,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.15] - 2026-06-16
+
+* [PR-12](https://github.com/itk-devops/devops_itkdev-docker-server/pull/12)
+  Clean up Taskfile and dev tooling for `docker compose`.
+* [PR-11](https://github.com/itk-devops/devops_itkdev-docker-server/pull/11)
+  Propagate command exit code instead of swallowing failed docker compose
+  commands.
+
 ## [0.0.14] - 2025-03-26
 
-* [PR-10](https://github.com/itk-dev/economics/pull/1)
+* [PR-10](https://github.com/itk-devops/devops_itkdev-docker-serverpull/1)
   Re-Update to node:18, re-update dependencies
 
 ## [0.0.13] - 2025-03-26
 
-* [PR-9](https://github.com/itk-dev/economics/pull/9)
+* [PR-9](https://github.com/itk-devops/devops_itkdev-docker-serverpull/9)
   Roll back to node:16 and dependencies lock from 0.0.9.
 
 ## [0.0.12] - 2025-03-26
 
-* [PR-8](https://github.com/itk-dev/economics/pull/8)
+* [PR-8](https://github.com/itk-devops/devops_itkdev-docker-serverpull/8)
   Fix binary non uploaded as release asset
 
 ## [0.0.11] - 2025-03-26
 
-* [PR-7](https://github.com/itk-dev/economics/pull/7)
+* [PR-7](https://github.com/itk-devops/devops_itkdev-docker-serverpull/7)
   Fix path in build action  
 
 ## [0.0.10] - 2025-03-26
 
-* [PR-5](https://github.com/itk-dev/economics/pull/5)
+* [PR-5](https://github.com/itk-devops/devops_itkdev-docker-serverpull/5)
   Update to node:18, update dependencies   
   Update docker setup   
   Update github actions   
@@ -55,7 +63,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.0.1] - 2022-04-22
 
-[Unreleased]: https://github.com/itk-dev/economics/compare/0.0.14...HEAD
+[Unreleased]: https://github.com/itk-devops/devops_itkdev-docker-server/compare/0.0.15...HEAD
+[0.0.15]: https://github.com/itk-devops/devops_itkdev-docker-server/releases/tag/0.0.15
 [0.0.14]: https://github.com/itk-devops/devops_itkdev-docker-server/releases/tag/0.0.14
 [0.0.13]: https://github.com/itk-devops/devops_itkdev-docker-server/releases/tag/0.0.13
 [0.0.12]: https://github.com/itk-devops/devops_itkdev-docker-server/releases/tag/0.0.12
