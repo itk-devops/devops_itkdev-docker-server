@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* Propagate the exit code from failed `docker compose` commands instead of
+  exiting 0, so callers (CI, Ansible) detect failures instead of seeing a
+  false success.
+
 ## [0.0.14] - 2025-03-26
 
 * [PR-10](https://github.com/itk-devops/devops_itkdev-docker-serverpull/1)
