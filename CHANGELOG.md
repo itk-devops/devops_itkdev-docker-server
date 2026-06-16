@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.15] - 2026-06-16
+
 * [PR-12](https://github.com/itk-devops/devops_itkdev-docker-server/pull/12)
   Clean up Taskfile and dev tooling for `docker compose`.
 * [PR-11](https://github.com/itk-devops/devops_itkdev-docker-server/pull/11)
@@ -61,7 +63,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.0.1] - 2022-04-22
 
-[Unreleased]: https://github.com/itk-devops/devops_itkdev-docker-servercompare/0.0.14...HEAD
+[Unreleased]: https://github.com/itk-devops/devops_itkdev-docker-server/compare/0.0.15...HEAD
+[0.0.15]: https://github.com/itk-devops/devops_itkdev-docker-server/releases/tag/0.0.15
 [0.0.14]: https://github.com/itk-devops/devops_itkdev-docker-server/releases/tag/0.0.14
 [0.0.13]: https://github.com/itk-devops/devops_itkdev-docker-server/releases/tag/0.0.13
 [0.0.12]: https://github.com/itk-devops/devops_itkdev-docker-server/releases/tag/0.0.12
