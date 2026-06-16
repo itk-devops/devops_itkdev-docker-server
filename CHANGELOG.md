@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+* [PR-12](https://github.com/itk-devops/devops_itkdev-docker-server/pull/12)
+  Clean up Taskfile and dev tooling for `docker compose`.
+
 ## [0.0.14] - 2025-03-26
 
 * [PR-10](https://github.com/itk-devops/devops_itkdev-docker-serverpull/1)
