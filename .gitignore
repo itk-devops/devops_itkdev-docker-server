@@ -3,3 +3,4 @@ itkdev-docker-compose-server
 node_modules
 dist
 .pkg-cache
+.task
