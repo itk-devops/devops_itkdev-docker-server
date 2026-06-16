@@ -83,7 +83,11 @@ export default class Docker {
 				if (err instanceof Error) {
 					console.error(err.message);
 				}
-				return null;
+
+				// Propagate the failed command's exit code so callers (CI, Ansible)
+				// detect the failure instead of seeing a false success.
+				const status = (err as {status?: number | null}).status;
+				process.exit(typeof status === 'number' ? status : 1);
 			}
 		}
 	}

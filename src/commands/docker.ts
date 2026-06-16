@@ -13,8 +13,8 @@ exports.handler = function (argv: { [x: string]: any; base: string; debug: any; 
 
   // Test env file exists.
   if (!utils.isFile(argv.base + '/' + env)) {
-    console.error('The env file not found!');
-    return;
+    console.error(`The env (${env}) file not found!`);
+    process.exit(1);
   }
 
   // Hack to parse the commands that should be sendt to docker.

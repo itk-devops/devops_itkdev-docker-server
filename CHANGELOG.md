@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 * [PR-12](https://github.com/itk-devops/devops_itkdev-docker-server/pull/12)
   Clean up Taskfile and dev tooling for `docker compose`.
+* [PR-11](https://github.com/itk-devops/devops_itkdev-docker-server/pull/11)
+  Propagate command exit code instead of swallowing failed docker compose
+  commands.
 
 ## [0.0.14] - 2025-03-26
 
